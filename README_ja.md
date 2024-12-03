@@ -54,13 +54,17 @@ Elastic IP: 127.0.0.1 (例)
 ```
 
 4. AWS Cloud9 に移動して `cloud9-for-prototyping` を起動
-5. `File` から `Upload Local Files` を押下
-6. 本リポジトリのソース zip ファイルを `Drag & drop file here` に投下
-7. `unzip` コマンドで zip を解凍してディレクトリを移動
+5. AWS Cloud9 IDE の画面上部にあるメニュバーから `Window` 、 `New Terminal` の順に選択して新しいターミナルを起動します。すでにターミナルが開いている場合は、それを使っても構いません。
+6. ターミナルで以下のコマンドを実行してソースコードをダウンロードします。
 
 ```sh
-Admin:~/environment $ unzip your_samples.zip
-Admin:~/environment $ cd your_samples/
+git clone https://github.com/aws-samples/alphafold-protein-structure-prediction-with-frontend-app.git
+```
+
+1. 以下のコマンドで `alphafold-protein-structure-prediction-with-frontend-app` のフォルダに移動します。
+
+```sh
+cd alphafold-protein-structure-prediction-with-frontend-app/
 ```
 
 ## デプロイ手順
