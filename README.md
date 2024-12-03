@@ -94,12 +94,11 @@ npm run build
 - After the modification, deploy backend CDK stack.
 
 ```sh
-cd ../provisioning
+cd ~/environment/alphafold-protein-structure-prediction-with-frontend-app/provisioning
 npm install
 npx cdk bootstrap
 ## Set up the network, database, and storage
 npx cdk deploy Alphafold2ServiceStack --require-approval never
-cd ../
 ```
 
 - After finishing the above command, you will see the output like below.
@@ -137,10 +136,10 @@ pip3 install aws-parallelcluster==3.7.2 --user
 export AWS_DEFAULT_REGION=us-east-1
 
 ## Generate a configuration file for a ParallelCluster cluster
-npx ts-node provisioning/hpc/alphafold2/config/generate-template.ts
+npx ts-node ~/environment/alphafold-protein-structure-prediction-with-frontend-app/provisioning/hpc/alphafold2/config/generate-template.ts
 
 ## Create a ParallelCluster cluster
-pcluster create-cluster --cluster-name hpccluster --cluster-configuration provisioning/hpc/alphafold2/config/config.yml
+pcluster create-cluster --cluster-name hpccluster --cluster-configuration ~/environment/alphafold-protein-structure-prediction-with-frontend-app/provisioning/hpc/alphafold2/config/config.yml
 ```
 
 <details>
@@ -165,7 +164,7 @@ Output:
   "clusters": [
     {
       "clusterName": "hpccluster",
-      ## Wait until CREATE_COMPLETE 
+      ## Wait until CREATE_COMPLETE
       "cloudformationStackStatus": "CREATE_COMPLETE",
 ...
 ```
@@ -344,4 +343,4 @@ npx cdk destroy GlobalStack
 npx cdk destroy Alphafold2ServiceStack
 ```
 
-- Lastly, Remove the Cloud9 development environment and Elastic IP attached Cloud9 from the AWS Management Console. 
+- Lastly, Remove the Cloud9 development environment and Elastic IP attached Cloud9 from the AWS Management Console.

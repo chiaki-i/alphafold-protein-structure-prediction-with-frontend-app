@@ -54,7 +54,7 @@ Elastic IP: 127.0.0.1 (例)
 ```
 
 4. AWS Cloud9 に移動して `cloud9-for-prototyping` を起動
-5. AWS Cloud9 IDE の画面上部にあるメニュバーから `Window` 、 `New Terminal` の順に選択して新しいターミナルを起動します。すでにターミナルが開いている場合は、それを使っても構いません。
+5. AWS Cloud9 IDE の画面上部にあるメニューバーから `Window` 、 `New Terminal` の順に選択して新しいターミナルを起動します。すでにターミナルが開いている場合は、それを使っても構いません。
 6. ターミナルで以下のコマンドを実行してソースコードをダウンロードします。
 
 ```sh
@@ -94,12 +94,11 @@ npm run build
 - 修正後、バックエンドを構築します
 
 ```sh
-cd ../provisioning
+cd ~/environment/alphafold-protein-structure-prediction-with-frontend-app/provisioning
 npm install
 npx cdk bootstrap
 ## Network, Database, Storage などの構築
 npx cdk deploy Alphafold2ServiceStack --require-approval never
-cd ../
 ```
 
 - 上記 CDK の Outputs から Alphafold2ServiceStack.GetSSHKeyCommand の値 `aws ssm get-parameter...` をコピー＆実行して秘密鍵を保存
@@ -119,16 +118,16 @@ chmod 600 ~/.ssh/keypair-alphafold2.pem
 
 ```sh
 ## ParallelCluster コマンドのインストール
-pip3 install aws-parallelcluster==3.7.2 --user
+pip3 install aws-parallelcluster==3.11.1 --user
 
 ## リージョンの設定
 export AWS_DEFAULT_REGION=us-east-1
 
 ## ParallelCluster を構築するための config.yml を作成
-npx ts-node provisioning/hpc/alphafold2/config/generate-template.ts
+npx ts-node ~/environment/alphafold-protein-structure-prediction-with-frontend-app/provisioning/hpc/alphafold2/config/generate-template.ts
 
 ## ParallelCluster クラスターの作成
-pcluster create-cluster --cluster-name hpccluster --cluster-configuration provisioning/hpc/alphafold2/config/config.yml
+pcluster create-cluster --cluster-name hpccluster --cluster-configuration ~/environment/alphafold-protein-structure-prediction-with-frontend-app/provisioning/hpc/alphafold2/config/config.yml
 ```
 
 <details>
