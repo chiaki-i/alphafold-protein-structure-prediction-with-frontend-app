@@ -4,7 +4,8 @@
 
 import * as fs from 'fs'
 import * as path from 'path'
-import * as aws from 'aws-sdk'
+import { CloudFormation } from '@aws-sdk/client-cloudformation';
+import { SecretsManager } from '@aws-sdk/client-secrets-manager';
 
 const CDK_ENV = process.env.CDK_ENV ? `-${process.env.CDK_ENV}` : ''
 
@@ -12,8 +13,10 @@ const REGION = 'us-east-1'
 const CFN_STACK_NAME = `Alphafold2ServiceStack${CDK_ENV}`
 
 async function getProvisionedEnv() {
-  const cfn = new aws.CloudFormation({ region: REGION })
-  const stacks = await cfn.describeStacks().promise()
+  const cfn = new CloudFormation({
+    region: REGION
+  })
+  const stacks = await cfn.describeStacks()
 
   const stack = stacks.Stacks?.find((stack) => {
     return stack.StackName == CFN_STACK_NAME
@@ -51,8 +54,10 @@ async function getProvisionedEnv() {
     return output.OutputKey == 'HeadNodeSecurityGroup'
   })?.OutputValue
 
-  const sm = new aws.SecretsManager({ region: REGION })
-  const secretVal = await sm.getSecretValue({ SecretId: AuroraCredentialSecretArn! }).promise()
+  const sm = new SecretsManager({
+    region: REGION
+  })
+  const secretVal = await sm.getSecretValue({ SecretId: AuroraCredentialSecretArn! })
   const s = JSON.parse(secretVal.SecretString!)
 
   return {
